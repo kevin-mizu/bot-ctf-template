@@ -1,0 +1,19 @@
+services:
+  bot:
+    build: .
+    ports:
+      - "55555:55555"
+    environment:
+      - PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+    restart: unless-stopped
+    cap_drop:
+      - all
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 1G
+    ulimits:
+      nofile:   
+        soft: 1024
+        hard: 1024
