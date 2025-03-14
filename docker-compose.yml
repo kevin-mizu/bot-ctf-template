@@ -5,9 +5,13 @@ services:
       - "55555:55555"
     environment:
       - PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+      # - ENVIRONMENT=development
     restart: unless-stopped
+    read_only: true
     cap_drop:
       - all
+    tmpfs:
+      - /tmp
     deploy:
       resources:
         limits:

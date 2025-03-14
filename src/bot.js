@@ -1,3 +1,6 @@
+// Force puppeteer to store everything to /tmp/
+process.env.HOME = "/tmp";
+
 const { delay, handleTargetCreated, handleTargetDestroyed, logMainInfo, logMainError } = require("./utils");
 const puppeteer = require("puppeteer");
 
@@ -34,7 +37,7 @@ async function goto(url) {
 
 	logMainInfo("Going to the user provided link...");
 	try { await page.goto(url) } catch {}
-	await delay(15000);
+	await delay(5000);
 
 	logMainInfo("Leaving o/");
 	await browser.close();
