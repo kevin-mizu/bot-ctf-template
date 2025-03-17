@@ -44,7 +44,7 @@ let tabs = [];
 let nbSW = 0;
 const handleTargetCreated = async function (target) {
 	if (target.type() === "page") {
-		if (tabs.length > 7) { // pages[0] doesn't count since it's not being used
+		if (tabs.length > 7) { // pages[0] doesn't count since it's not being used.
 			logMainError("You can't open more than 7 tabs!");
 			await this.close();
 			process.exit(1);
@@ -54,11 +54,37 @@ const handleTargetCreated = async function (target) {
 		const page = await target.page();
 		console.log(`${bold(`[T${tabs.length}]>`)} ${blue("navigating".padEnd(17))} ${bold("|")} ${page.url()}`);
 		await hookPageEvents(page, tabs.length);
+
+	// Service workers but not only, extension's v3 background script also uses sw.
 	} else if (target.type() === "service_worker") {
 		nbSW++
 		console.log(`${bold(`[S${nbSW}]>`)} ${gray("New Service Worker created!")}`);
 		const worker = await target.worker();
 		await hookWorkerEvents(worker, nbSW);
+
+	// Extension's side panel spawn as "other".
+	} else if (target.type() === "other") {
+		const client = await target.createCDPSession(); // No choice for that type, creating a CDP session is required.
+		await client.send("Runtime.enable");
+		const info = await client.send("Target.getTargetInfo", { targetId: target._targetId });
+
+		if (info?.targetInfo?.url?.startsWith("chrome-extension://")) {
+			console.log(`${bold(`[E${other.length+1}]>`)} ${gray("New extension page created!")}`);
+		} else {
+			// Don't handle other yet. For the moment only extension's related pages are handled here.
+			return;
+		}
+
+		other.push(target._targetId);
+		const targetId = other.length;
+		console.log(`${bold(`[E${targetId}]>`)} ${blue("navigating".padEnd(17))} ${bold("|")} ${info.targetInfo.url}`);
+
+		client.on("Runtime.consoleAPICalled", (event) => {
+			const { type, args } = event;
+			const color = getConsoleColor[type] || nothing;
+			const message = args.map(arg => arg.value || arg.description || "").join(" ");
+			console.log(`${bold(`[E${targetId}]>`)} ${color(`console.${type}`.padEnd(17))} ${bold("|")} ${message}`);
+		});
 	}
 }
 
