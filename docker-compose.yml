@@ -11,7 +11,7 @@ services:
     cap_drop:
       - all
     tmpfs:
-      - /tmp
+      - /tmp:mode=1733,exec
     deploy:
       resources:
         limits:
