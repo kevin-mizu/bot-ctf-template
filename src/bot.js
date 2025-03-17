@@ -6,6 +6,7 @@ const puppeteer = require("puppeteer");
 
 // Banner
 const tips = ["Every console.log usage on the bot will be sent back to you :)"];
+console.log(`==========\nTips: ${tips[Math.floor(Math.random() * tips.length)]}\n==========`);
 
 // Spawn the bot and navigate to the user provided link
 async function goto(url) {
@@ -45,20 +46,8 @@ async function goto(url) {
 
 // Handle TCP data
 process.stdin.on("data", (data) => {
-	let url;
-	const input = data.toString().trim();
+	const url = data.toString().trim();
 
-	// curl http://localhost:55555?url=https://domain.com
-	if (input.startsWith("GET ")) {
-		console.log(`HTTP/1.1 200 OK\r\n`);
-		url = new URL(input.split(" ")[1], "http://localhost").searchParams.get("url");
-
-	// echo https://domain.com | nc localhost 55555 
-	} else {
-		url = input;
-	}
-
-	console.log(`==========\nTips: ${tips[Math.floor(Math.random() * tips.length)]}\n==========`);
 	if (!url || !(url.startsWith("http://") || url.startsWith("https://"))) {
 		console.log("[ERROR] Invalid URL!");
 		process.exit(1);
