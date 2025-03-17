@@ -46,6 +46,9 @@ async function goto(url) {
 
 // Handle TCP data
 process.stdin.on("data", (data) => {
+	// Kill all chromium process older than 1 minutes.
+	require("child_process").exec(`ps -o pid,etime,comm | awk '$3 ~ /chrom/ && $1 != 1 && $2 !~ /^0:/ {print $1}' | xargs -r kill -9`);
+
 	const url = data.toString().trim();
 
 	if (!url || !(url.startsWith("http://") || url.startsWith("https://"))) {
