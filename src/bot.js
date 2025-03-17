@@ -5,7 +5,7 @@ const { delay, handleTargetCreated, handleTargetDestroyed, logMainInfo, logMainE
 const puppeteer = require("puppeteer");
 
 // Banner
-const tips = ["Every console.log usage on the bot will be sent back to you :)"];
+const tips = ["Every console.log usage on the bot will be sent back to you :)", "There is a small race window (~10ms) when a new tab is opened where console.log won't return output :("];
 console.log(`==========\nTips: ${tips[Math.floor(Math.random() * tips.length)]}\n==========`);
 
 // Spawn the bot and navigate to the user provided link
