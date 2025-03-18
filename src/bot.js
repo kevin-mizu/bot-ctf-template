@@ -15,7 +15,7 @@ function FindProxyForURL (url, host) {
 	if (host.endsWith("fcsc.fr")) return "PROXY 127.0.0.1:1";
 	return "DIRECT";
 }
-`).toString('base64');
+`).toString("base64");
 
 // Spawn the bot and navigate to the user provided link.
 async function goto(url) {
