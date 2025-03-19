@@ -6,7 +6,7 @@ RUN apk add --update --no-cache nodejs npm socat chromium-chromedriver su-exec 	
 	npm install																	&& \
 	adduser -D bot
 
-COPY ./entrypoint.sh /entrypoint.sh
+COPY --chown=root:root --chmod=500 ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 COPY ./src/ .
