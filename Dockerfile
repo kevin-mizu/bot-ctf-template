@@ -2,12 +2,12 @@ FROM alpine:3.21.3
 
 WORKDIR /usr/app
 COPY ./src/package.json .
-RUN apk add --update --no-cache nodejs npm socat chromium-chromedriver && \
-	npm install
+RUN apk add --update --no-cache nodejs npm socat chromium-chromedriver su-exec 	&& \
+	npm install																	&& \
+	adduser -D bot
 
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 COPY ./src/ .
-USER guest
 CMD ["/bin/sh", "/entrypoint.sh"]

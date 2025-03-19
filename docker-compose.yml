@@ -10,14 +10,8 @@ services:
     read_only: true
     cap_drop:
       - all
+    cap_add:
+      - CAP_SETGID # Needed for su-exec
+      - CAP_SETUID # Needed for su-exec
     tmpfs:
       - /tmp:mode=1733,exec
-    deploy:
-      resources:
-        limits:
-          cpus: "0.5"
-          memory: 1G
-    ulimits:
-      nofile:   
-        soft: 1024
-        hard: 1024
