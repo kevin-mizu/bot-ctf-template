@@ -36,7 +36,7 @@ My main motivation for creating this bot is to provide:
 
 - For CTF players:
   * A way to debug why a solution isn't working remotely using console.log. No more spamming webhooks with 985,564 fetches.
-  * Just like for challenge makers, an easy way to share solutions after the CTF (for example: https://mizu.re/post/fcsc-2025-writeups#dom-monitor-part1-solution-script).
+  * Just like for challenge makers, an easy way to share solutions after the CTF ([example](https://mizu.re/post/fcsc-2025-writeups#dom-monitor-part1-solution-script)).
 
 I've already used this template in several CTFs (HeroCTF v6, FCSC 2025...) and received great feedback, so I thought it was worth sharing :)
 
