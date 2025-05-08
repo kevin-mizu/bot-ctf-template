@@ -39,7 +39,8 @@ async function goto(url) {
 	browser.on("targetdestroyed", handleTargetDestroyed.bind(browser));
 
 	/* ** CHALLENGE LOGIC ** */
-	const page = await browser.newPage();
+	const [page] = await browser.pages(); // Reuse the page created by the browser.
+	await handleTargetCreated(page.target()); // Since it was created before the event listener was set, we need to hook it up manually.
 	await page.setDefaultNavigationTimeout(5000);
 
 	logMainInfo("XXX...");
@@ -59,7 +60,7 @@ process.stdin.on("data", (data) => {
 	const url = data.toString().trim();
 
 	if (!url || !(url.startsWith("http://") || url.startsWith("https://"))) {
-		console.log("[ERROR] Invalid URL!");
+		logMainError("You provided an invalid URL. It should start with http:// or https://.");
 		process.exit(1);
 	}
 
