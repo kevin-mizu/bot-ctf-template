@@ -44,8 +44,8 @@ let tabs = [];
 let nbSW = 0;
 const handleTargetCreated = async function (target) {
 	if (target.type() === "page") {
-		if (tabs.length > 7) { // pages[0] doesn't count since it's not being used.
-			logMainError("You can't open more than 7 tabs!");
+		if (tabs.length > 5) { // pages[0] doesn't count since it's not being used.
+			logMainError("You can't open more than 5 tabs!");
 			await this.close();
 			process.exit(1);
 		}
