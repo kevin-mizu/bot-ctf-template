@@ -61,7 +61,7 @@ Then, after running it, here's an example of the output you might get (taken fro
 
 ## 🔒 Restricting domains
 
-As well mentioned in the beautiful "[Secret Web Hacking Knowledge: CTF Authors Hate These Simple Tricks](https://www.youtube.com/watch?v=Sm4G6cAHjWM)" talk by [@pilvar222](https://x.com/pilvar222), client-side challenges have often been bypassed using other challenge domains. One way to prevent this from the bot's side is by blocking access to any other challenge domains.
+As mentioned in the great "[Secret Web Hacking Knowledge: CTF Authors Hate These Simple Tricks](https://www.youtube.com/watch?v=Sm4G6cAHjWM)" talk by [@pilvar222](https://x.com/pilvar222), client-side challenges have often been bypassed using other challenge domains. One way to prevent this from the bot's side is by blocking access to any other challenge domains.
 
 On the bot, this is done using the [--proxy-pac-url](https://www.chromium.org/developers/design-documents/network-settings/) Chromium flag, which allows each request to be handled and proxied (or not) based on the return value.
 
