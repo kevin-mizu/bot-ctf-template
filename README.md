@@ -45,7 +45,7 @@ I've already used this template in several CTFs ([HeroCTF v6](https://github.com
 To use it, all you need to do is customize the `/* ** CHALLENGE LOGIC ** */` section in the [/src/bot.js](./src/bot.js) file. For example, if the goal of the challenge is to steal a cookie, you would add:
 
 ```js
-await page.setCookie({
+await browser.setCookie({
     name: "flag",
     value: "FCSC{FAKE_FLAG}",
     domain: "challenge-domain.com",
@@ -79,4 +79,4 @@ function FindProxyForURL (url, host) {
 
 ## 🤝 Contributors
 
-[@cryptanalyse](https://x.com/cryptanalyse), and maybe you?
+[@cryptanalyse](https://x.com/cryptanalyse), [@worty_](https://x.com/worty_) and maybe you?
